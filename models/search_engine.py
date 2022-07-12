@@ -1,21 +1,25 @@
+from asyncio import tasks
 import prefect
 from prefect import task, Flow
+from sentence_transformers import SentenceTransformer, util
+import torch
 import pandas as pd
 import spacy
+from typing import List
 
-PATH_REPOS_CLEAN = "http://openpharma.s3-website.us-east-2.amazonaws.com/repos_clean.csv"
-PATH_TEST_BASE = "http://openpharma.s3-website.us-east-2.amazonaws.com/search_bar_test_base.csv"
 
-@task
-def download_data(path: str):
-    df = pd.read_csv(PATH_REPOS_CLEAN)
-    df_test  = pd.read_csv(PATH_TEST_BASE)
-    X = df['description'].to_list()
-    X_test = df_test
-    return X, X_test
+@task(nout=4)
+def download_data(path_repos: str, path_test: str):
+    df = pd.read_csv(path_repos)
+    df_test  = pd.read_csv(path_test)
+    X = df["description"].to_list()
+    Y = df["full_name"].to_list()
+    X_test = df_test["search query"].to_list()
+    Y_test = df_test["packages"].to_list()
+    return X, Y, X_test, Y_test
     
 @task
-def clean_data(X, is_lemma=True, remove_stop=True, is_alphabetic=True):
+def clean_data(X, is_lemma: bool=True, remove_stop: bool=True, is_alphabetic: bool=True):
     """
     X : list of string such as ["sentence_1", "sentences_2", ... , "sentence_n"]
     Return : list of list of words 
@@ -78,20 +82,24 @@ def clean_data(X, is_lemma=True, remove_stop=True, is_alphabetic=True):
     return new_X
 
 @task
-def inference_pretrained():
-
-    #embedder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-    #embed_corpus = embedder.encode(new_X, convert_to_tensor=True)
-    return 0
+def inference_pretrained(X: List[str], model_name: str='BERT'):
+    if(model_name=='BERT'):
+        embedder = SentenceTransformer('all-MiniLM-L6-v2')
+        embed_corpus = embedder.encode(X, convert_to_tensor=True)
+    else:
+        embed_corpus = 0
+    return embed_corpus
 
 @task
 def scoring(X_vector, X_test_vector):
-
-    #embedder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-    #embed_corpus = embedder.encode(new_X, convert_to_tensor=True)
+    # Scoring logic
     return 0
 
 @task
-def save_model(X_vector):
-    #from X_vector tensor to S3 bucket /ML directory
+def save_model(X_vector, user: str, password: str):
+    """tasks.aws.s3.S3Upload(
+        bucket="openpharma",
+        boto_kwargs=(user, password)
+    )"""
+    torch.save(X_vector, "models_save/inference_description.pt")
     return 0

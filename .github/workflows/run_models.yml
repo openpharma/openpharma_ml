@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      OPENPHARMA_AWS_ACCESS_KEY_ID: ${{ secrets.OPENPHARMA_AWS_ACCESS_KEY_ID }}
+      OPENPHARMA_AWS_SECRET_ACCESS_KEY: ${{ secrets.OPENPHARMA_AWS_SECRET_ACCESS_KEY }}
 
     steps:
     - uses: actions/checkout@v3

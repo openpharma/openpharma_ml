@@ -84,7 +84,7 @@ def clean_data(X, is_lemma: bool=True, remove_stop: bool=True, is_alphabetic: bo
 @task
 def inference_pretrained(X: List[str], model_name: str='BERT'):
     if(model_name=='BERT'):
-        embedder = SentenceTransformer('all-MiniLM-L6-v2')
+        embedder = SentenceTransformer('LM-L6-BERT')
         embed_corpus = embedder.encode(X, convert_to_tensor=True)
     else:
         embed_corpus = 0
@@ -97,9 +97,13 @@ def scoring(X_vector, X_test_vector):
 
 @task
 def save_model(X_vector, user: str, password: str):
-    """tasks.aws.s3.S3Upload(
+    bucket_connection = tasks.aws.s3.S3Upload(
         bucket="openpharma",
         boto_kwargs=(user, password)
-    )"""
-    torch.save(X_vector, "models_save/inference_description.pt")
+    )
+
+    bucket_connection.run(
+        data=X_vector,
+        key="inference_description.pt"
+    )
     return 0

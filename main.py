@@ -16,5 +16,5 @@ with Flow("Search-engine") as flow1:
     X_embed = search_engine.inference_pretrained(X_clean)
     X_test_embed = search_engine.inference_pretrained(X_test_clean)
 
-    search_engine.save_model(X_embed, user=os.getenv('AWS_ACCESS_KEY_ID'), password=os.getenv('AWS_SECRET_ACCESS_KEY'))
+    search_engine.save_model(X_embed, key_id=os.getenv('AWS_ACCESS_KEY_ID'), access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 flow1.run()

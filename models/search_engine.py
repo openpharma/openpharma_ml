@@ -1,7 +1,7 @@
 from asyncio import tasks
 import prefect
 from prefect import task
-from prefect.tasks.aws.s3 import S3Upload
+import boto3
 from sentence_transformers import SentenceTransformer, util
 import torch
 import pandas as pd
@@ -97,14 +97,15 @@ def scoring(X_vector, X_test_vector):
     return 0
 
 @task
-def save_model(X_vector, user: str, password: str):
-    bucket_connection = S3Upload(
-        bucket="openpharma",
-        boto_kwargs=(user, password)
+def save_model(X_vector, key_id: str, access_key: str):
+    client = boto3.client(
+        's3',
+        aws_access_key_id=key_id,
+        aws_secret_access_key=access_key
     )
 
-    bucket_connection.run(
-        data=X_vector,
-        key="inference_description.pt"
+    client.upload_file(Filename='scratch/repos_clean.csv',
+        Bucket='openpharma',
+        Key='repos_clean.csv'
     )
     return 0

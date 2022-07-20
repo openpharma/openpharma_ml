@@ -1,6 +1,7 @@
 from asyncio import tasks
 import prefect
-from prefect import task, S3Upload
+from prefect import task
+from prefect.tasks.aws.s3 import S3Upload
 from sentence_transformers import SentenceTransformer, util
 import torch
 import pandas as pd
@@ -101,7 +102,7 @@ def save_model(X_vector, user: str, password: str):
         bucket="openpharma",
         boto_kwargs=(user, password)
     )
-    
+
     bucket_connection.run(
         data=X_vector,
         key="inference_description.pt"

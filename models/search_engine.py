@@ -106,7 +106,7 @@ def save_model(X_vector, key_id: str, access_key: str):
     )
 
     client.upload_file(Filename='inference_description.pt',
-        Bucket='openpharma/ml',
-        Key='inference_description.pt'
+        Bucket='openpharma',
+        Key='ml/inference_description.pt'
     )
     return 0

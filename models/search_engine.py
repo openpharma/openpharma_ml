@@ -98,14 +98,14 @@ def scoring(X_vector, X_test_vector):
 
 @task
 def save_model(X_vector, key_id: str, access_key: str):
-    torch.save(X_vector, "tmp/inference_description.pt")
+    torch.save(X_vector, "inference_description.pt")
     client = boto3.client(
         's3',
         aws_access_key_id=key_id,
         aws_secret_access_key=access_key
     )
 
-    client.upload_file(Filename='tmp/inference_description.pt',
+    client.upload_file(Filename='inference_description.pt',
         Bucket='openpharma/ml',
         Key='inference_description.pt'
     )

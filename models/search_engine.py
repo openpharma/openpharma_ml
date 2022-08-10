@@ -21,9 +21,10 @@ def packages_read_csv(path_repos: str, path_test: str):
 @task
 def openissues_read_csv(path_openissues: str):
     df = pd.read_csv(path_openissues)
+    df["title"] = df["title"].fillna("")
+    df["body"] = df["body"].fillna("")
     df["text_to_vec"] = df["body"]+df["title"]
     X = df["text_to_vec"].to_list()
-    print(X)
     return X
     
 @task

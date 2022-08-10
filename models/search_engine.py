@@ -9,7 +9,7 @@ from typing import List
 
 
 @task(nout=4)
-def download_data(path_repos: str, path_test: str):
+def packages_read_csv(path_repos: str, path_test: str):
     df = pd.read_csv(path_repos)
     df_test  = pd.read_csv(path_test)
     X = df["description"].to_list()
@@ -17,6 +17,13 @@ def download_data(path_repos: str, path_test: str):
     X_test = df_test["search query"].to_list()
     Y_test = df_test["packages"].to_list()
     return X, Y, X_test, Y_test
+
+@task
+def openissues_read_csv(path_openissues: str):
+    df = pd.read_csv(path_openissues)
+    df["text_to_vec"] = df["body"]+df["title"]
+    X = df["text_to_vec"].to_list()
+    return X
     
 @task
 def clean_data(X, is_lemma: bool=True, remove_stop: bool=True, is_alphabetic: bool=True):
@@ -96,16 +103,16 @@ def scoring(X_vector, X_test_vector):
     return 0
 
 @task
-def save_model(X_vector, key_id: str, access_key: str):
-    torch.save(X_vector, "inference_description.pt")
+def save_model(X_vector, key_id: str, access_key: str, file_name: str):
+    torch.save(X_vector, file_name)
     client = boto3.client(
         's3',
         aws_access_key_id=key_id,
         aws_secret_access_key=access_key
     )
 
-    client.upload_file(Filename='inference_description.pt',
+    client.upload_file(Filename=file_name,
         Bucket='openpharma',
-        Key='ml/inference_description.pt'
+        Key='ml/{}'.format(file_name)
     )
     return 0

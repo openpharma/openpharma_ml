@@ -23,6 +23,7 @@ def openissues_read_csv(path_openissues: str):
     df = pd.read_csv(path_openissues)
     df["text_to_vec"] = df["body"]+df["title"]
     X = df["text_to_vec"].to_list()
+    print(X)
     return X
     
 @task

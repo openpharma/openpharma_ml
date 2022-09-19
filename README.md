@@ -1,4 +1,4 @@
-# ML for search bar and data categorization ![image](https://user-images.githubusercontent.com/49449000/191012061-d53c27bc-ce66-41a0-a914-a357245df980.png)
+# ML for search bar and data categorization <img src="logo.png" align="right" width="200" style="margin-left:50px;"/>
 The objective of openpharma is to provide a neutral home for open source software related to pharmaceutical industry that is not tied to one company or institution. https://open-pharma.herokuapp.com/
 
 📨 For any questions, feel free to reach me out at the email adress : mathieu.cayssol@gmail.com

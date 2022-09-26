@@ -29,7 +29,7 @@ We divided our list of packages into 5 main categories : Plots, Tables, Stats, C
 
 ## b. Performance measurement
 
-We measure the performance using a test dataset containing 115 examples : 10 Plots, 8 Tables, 88 Stats, 2 CDISC and 15 Utilities. You have the accuracy on the following figure. **!!! As we have a strong imbalanced dataset, accuracy is not always relevant. To have better insights, you can calculate Precision, Recall and F1-score.**
+We measure the performance using a test dataset containing 115 examples : 10 Plots, 8 Tables, 88 Stats, 2 CDISC and 15 Utilities (sum ≠ 115 bcz it's a multilabel classification). You have the accuracy on the following figure. **!!! As we have a strong imbalanced dataset, accuracy is not always relevant. To have better insights, you can calculate Precision, Recall and F1-score.**
 
 
 <img width="1152" alt="Package categorisation - Performance" src="https://user-images.githubusercontent.com/49449000/192284783-f7c15d6e-2b89-4f18-bed4-4dcd279db018.png">

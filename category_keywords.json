@@ -1,0 +1,7 @@
+{
+    "plots": "['explore', 'exploratory','visualization', 'plot', 'graphs', 'graphical', 'interactive', 'ggplot', 'exploration', 'graphics', 'tlg', 'tlgs', 'shiny', 'figure']",
+    "tables": "['table', 'listings', 'tlg', 'report', 'tlgs', 'rtf', 'format']",
+    "stats": "['analysis', 'regression', 'bayesian', 'survival', 'imputation', 'distribution', 'linear', 'estimate', 'estimation', 'covariate', 'mcmc', 'statistical', 'multivariate', 'modelling', 'implementation', 'inference', 'markov', 'likelihood', 'gradient', 'mixture', 'prediction', 'bayes', 'carlo', 'logistic', 'forest', 'probability', 'cox', 'probabilistic', 'analyze', 'correlation', 'posterior', 'predictive', 'modeling', 'stochastic', 'fitting', 'statistic', 'hypothesis', 'differential', 'binomial', 'forecasting', 'series', 'learning']",
+    "cdisc": "['cdisc', 'adam', 'consortium', 'compliant', 'fda']",
+    "utilities": "['rtf', 'utility', 'validation']"
+}

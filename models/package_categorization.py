@@ -3,7 +3,6 @@ from typing import Dict, List
 import json
 import spacy
 import ast
-import prefect
 from prefect import task
 import boto3
 
@@ -117,7 +116,7 @@ def merge_repos_annotated(df_repos: pd.DataFrame, df_anno: pd.DataFrame)-> pd.Da
 
 @task
 def save_dataframe(df: pd.DataFrame, key_id: str, access_key: str, file_name: str):
-    df.to_csv("{}.csv".format(file_name), index=False)
+    df.to_csv(file_name, index=False)
     client = boto3.client('s3',
         aws_access_key_id=key_id,
         aws_secret_access_key=access_key

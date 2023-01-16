@@ -2,7 +2,7 @@ name: ML open-pharma
 
 on:
   schedule:
-    - cron: "10 1 * * *" # daily
+    - cron: '10 1 * * *'
   push:
     branches:
       - main

@@ -17,6 +17,7 @@ You are in the front-end repository of openpharma. The global project include 3 
 
 <img width="1550" alt="Pipeline_search_bar" src="https://user-images.githubusercontent.com/49449000/191011621-de32791c-d8b8-4311-ae33-cd4b0e4501de.png">
 
+
 # 2. Package categorization
 
 ## a. Scope
